@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 3 · ¿Dónde está Santiago? · Veinticuatro A2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+/* ============ MINIMAL & SAFE STYLES - NO EXTERNAL DEPS ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a1a;--cream:#faf6ef;--paper:#fdfbf6;
+  --olive:#6b7a3f;--olive-dark:#4f5a2c;
+  --terracotta:#c97246;--terracotta-dark:#a8542a;
+  --mustard:#d9a85a;--sky:#3a6b8a;
+  --line:rgba(26,26,26,.12);
+  --shadow-soft:0 8px 30px rgba(26,26,26,.06);
+  --shadow-md:0 18px 50px rgba(26,26,26,.12);
+}
+html,body{background:var(--cream);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.6;scroll-behavior:smooth;overflow-x:hidden;width:100%;min-height:100vh}
+img{max-width:100%;display:block}a{color:var(--sky)}
+
+/* ====== HERO ====== */
+.hero{
+  min-height:80vh;
+  background:linear-gradient(135deg,#3a4a1f 0%,#6b7a3f 60%,#d9a85a 100%);
+  color:#fff;padding:60px 20px;text-align:center;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center
+}
+.hero::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 80%,rgba(217,168,90,.18) 0%,transparent 50%),
+             radial-gradient(circle at 80% 20%,rgba(107,122,63,.25) 0%,transparent 50%);
+  pointer-events:none}
+.hero h1{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:18px;max-width:900px;position:relative;z-index:1;font-family:'Caveat',cursive}
+.hero h1 em{font-style:normal;color:var(--mustard);font-weight:700;text-decoration:underline wavy var(--mustard);text-underline-offset:6px;font-family:'Caveat',cursive}
+.hero .kicker{font-size:1.1rem;color:var(--mustard);margin-bottom:14px;letter-spacing:1px;position:relative;z-index:1;font-weight:600}
+.hero .desc{font-size:1.1rem;line-height:1.6;max-width:600px;margin:0 auto 24px;opacity:.95;position:relative;z-index:1;font-weight:400}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
+.btn{display:inline-block;padding:14px 28px;border-radius:50px;font-weight:700;
+  text-decoration:none;transition:.2s;font-size:.95rem;cursor:pointer;border:2px solid transparent;
+  font-family:inherit;letter-spacing:0}
+.btn-primary{background:var(--terracotta);color:#fff;box-shadow:0 4px 0 var(--terracotta-dark)}
+.btn-primary:hover{background:var(--terracotta-dark);transform:translateY(-3px) rotate(-1deg);box-shadow:0 6px 0 var(--terracotta-dark)}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5);border-style:dashed}
+.btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff;transform:rotate(1deg)}
+
+/* ====== STICKY NAV ====== */
+.toc{position:sticky;top:0;background:rgba(253,251,246,.95);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);z-index:50;padding:14px 16px}
+.toc-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.toc-brand{font-size:1.2rem;font-weight:900;color:var(--ink);white-space:nowrap}
+.toc-brand em{color:var(--terracotta);font-style:normal}
+.toc-links{display:flex;gap:6px;flex-wrap:wrap;flex:1;justify-content:center}
+.toc-links a{text-decoration:none;color:var(--ink);font-weight:600;font-size:.85rem;
+  padding:6px 12px;border-radius:20px;transition:.2s}
+.toc-links a:hover{background:var(--olive);color:#fff;transform:rotate(-2deg) scale(1.05)}
+.toc-progress{display:flex;align-items:center;gap:8px;background:#fff;padding:6px 14px;border-radius:30px;border:1px solid var(--line);font-size:.85rem;font-weight:700}
+.toc-progress-bar{width:60px;height:5px;background:var(--line);border-radius:10px;overflow:hidden}
+.toc-progress-bar div{height:100%;background:linear-gradient(90deg,var(--olive),var(--mustard));width:0%;transition:.4s}
+
+/* ====== MAIN ====== */
+main{max-width:1200px;margin:0 auto;padding:60px 20px}
+section{margin-bottom:70px;scroll-margin-top:80px}
+.lesson-num{display:inline-block;font-size:1rem;color:var(--olive);
+  background:rgba(107,122,63,.1);padding:4px 16px;border-radius:20px;margin-bottom:12px;font-weight:700}
+.lesson-title{font-size:clamp(1.8rem,5vw,3rem);font-weight:900;line-height:1.1;
+  letter-spacing:-1px;margin-bottom:14px;font-family:'Caveat',cursive}
+.lesson-title em{font-style:normal;color:var(--olive);text-decoration:underline wavy var(--terracotta);text-underline-offset:6px;font-family:'Caveat',cursive}
+.lesson-deck{font-size:1.05rem;color:#555;max-width:680px;margin-bottom:36px;line-height:1.7}
+.divider{display:flex;align-items:center;gap:20px;margin:60px 0 30px;
+  font-size:1.5rem;color:var(--olive);font-weight:700;font-family:'Caveat',cursive}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ====== INTRO CARDS ====== */
+.intro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:30px 0}
+.intro-card{background:#fff;border-radius:16px;padding:24px;
+  box-shadow:var(--shadow-soft);border:1px solid var(--line);position:relative;overflow:hidden;transition:.3s}
+.intro-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.intro-card .ico{font-size:2.2rem;margin-bottom:10px;display:block}
+.intro-card h4{font-size:1.15rem;margin-bottom:6px;color:var(--ink)}
+.intro-card p{font-size:.88rem;color:#666;margin:0}
+.intro-card .tag{position:absolute;top:12px;right:12px;background:var(--mustard);
+  color:var(--ink);font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:12px}
+
+/* ====== DATA TABLES - RESPONSIVE ====== */
+.data-table{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft);
+  margin:20px 0;border:1px solid var(--line);width:100%;transform:rotate(-.2deg)}
+.data-table table{width:100%;border-collapse:collapse;font-size:.95rem}
+.data-table th{background:var(--olive);color:#fff;padding:12px 16px;text-align:left;
+  font-size:.85rem;letter-spacing:1px;text-transform:uppercase;font-weight:700;font-family:'Caveat',cursive;font-size:1.05rem}
+.data-table td{padding:12px 16px;border-bottom:1px solid var(--line);font-size:.92rem}
+.data-table tr:last-child td{border:none}
+.data-table tr:hover td{background:var(--paper)}
+.data-table .es{color:var(--terracotta);font-weight:700;font-size:.95rem}
+.data-table .hi{background:rgba(217,168,90,.12)}
+.data-table caption{caption-side:top;padding:14px 16px;background:var(--paper);
+  font-style:italic;color:#666;font-size:.9rem;text-align:left;font-weight:600;
+  border-bottom:1px solid var(--line)}
+
+@media(max-width:720px){
+  .data-table{background:transparent;box-shadow:none;border:none;margin:14px 0}
+  .data-table table,.data-table thead,.data-table tbody,.data-table tr,.data-table td{display:block;width:100%}
+  .data-table thead{display:none}
+  .data-table caption{background:#fff;padding:14px;border-radius:12px;margin-bottom:10px;
+    box-shadow:var(--shadow-soft);text-align:center;display:block}
+  .data-table tbody tr{background:#fff;border-radius:12px;margin-bottom:10px;padding:12px;
+    box-shadow:var(--shadow-soft);border:1px solid var(--line);display:grid;gap:6px}
+  .data-table td{border:none;padding:8px 10px;font-size:.88rem;background:rgba(107,122,63,.05);border-radius:8px;display:block}
+  .data-table td:before{content:attr(data-label);font-weight:800;font-size:.7rem;
+    color:var(--olive);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px}
+}
+
+/* ====== QUIZ ====== */
+.quiz{background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-soft);border:1px solid var(--line)}
+.q-item{padding:16px;background:var(--paper);border-radius:12px;margin-bottom:14px;border:1px solid var(--line)}
+.q-item .q-text{font-weight:600;font-size:1rem;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start}
+.q-num{background:var(--olive);color:#fff;width:26px;height:26px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:800;flex-shrink:0}
+.q-opts{display:flex;flex-wrap:wrap;gap:8px}
+.q-opt{background:#fff;border:2px solid var(--line);padding:8px 14px;border-radius:10px;
+  cursor:pointer;font-weight:600;font-family:inherit;transition:.2s;font-size:.9rem}
+.q-opt:hover:not(:disabled){border-color:var(--olive);color:var(--olive)}
+.q-opt.correct{background:var(--olive);color:#fff;border-color:var(--olive)}
+.q-opt.wrong{background:#c0392b;color:#fff;border-color:#c0392b;animation:shake .4s}
+.q-opt:disabled{cursor:not-allowed}
+.q-explain{margin-top:10px;padding:10px;background:rgba(58,107,138,.08);
+  border-left:3px solid var(--sky);border-radius:6px;font-size:.88rem;display:none}
+.q-explain.show{display:block}
+.q-explain b{color:var(--sky)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* ====== NOTE BOX ====== */
+.note-box{background:linear-gradient(135deg,#f0f5e2,#fafce8);border-left:4px solid var(--olive);
+  padding:18px 22px;border-radius:0 12px 12px 0;margin:20px 0;transform:rotate(-.3deg);
+  position:relative;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.note-box::before{content:"📌";position:absolute;top:-10px;left:14px;font-size:1.2rem;background:#fff;padding:0 6px;border-radius:50%}
+.note-box h4{margin-bottom:6px;color:var(--olive);font-size:1.05rem;font-weight:700}
+.note-box p{margin:0;font-size:.95rem;line-height:1.6}
+.note-box.terra{background:linear-gradient(135deg,#fef6e8,#fff8e8);border-left-color:var(--terracotta)}
+.note-box.terra h4{color:var(--terracotta)}
+.note-box.terra::before{content:"🎁"}
+.note-box.sky{background:linear-gradient(135deg,#e8f1f7,#f0f7fb);border-left-color:var(--sky)}
+.note-box.sky h4{color:var(--sky)}
+.note-box.sky::before{content:"🪄"}
+
+/* ====== COUNTRY CARDS ====== */
+.country-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:24px 0}
+.country-card{background:#fff;border-radius:16px;padding:22px;box-shadow:var(--shadow-soft);
+  border:1px solid var(--line);transition:.3s;position:relative;overflow:hidden}
+.country-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.country-card .flag{font-size:2.5rem;margin-bottom:6px;display:block}
+.country-card h4{font-size:1.3rem;margin-bottom:12px;color:var(--ink)}
+.country-card .row{display:flex;justify-content:space-between;padding:6px 0;
+  border-bottom:1px dashed var(--line);font-size:.9rem;gap:10px}
+.country-card .row:last-child{border:none}
+.country-card .row .lbl{color:#666;font-weight:400;flex-shrink:0}
+.country-card .row .val{color:var(--terracotta);font-weight:700;text-align:right}
+
+/* ====== BLOG ====== */
+.blog{background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-soft);
+  border:1px solid var(--line);max-width:680px;margin:0 auto;overflow:hidden}
+.blog-header{background:linear-gradient(135deg,var(--terracotta),var(--terracotta-dark));
+  color:#fff;margin:-24px -24px 18px;padding:18px 24px}
+.blog-header h3{font-size:1.3rem;margin-bottom:4px}
+.blog-header .date{font-size:.78rem;opacity:.9}
+.blog-image{width:100%;height:240px;background:linear-gradient(135deg,#4a6b3a,#3a5a2a);
+  border-radius:12px;margin:18px 0;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:4rem;position:relative;overflow:hidden}
+.blog p{line-height:1.75;margin-bottom:12px;font-size:.95rem}
+.blog p .hl{background:rgba(107,122,63,.15);padding:1px 5px;border-radius:4px;font-weight:600;color:var(--olive)}
+.blog p .hl-esta{background:rgba(217,168,90,.25);padding:1px 5px;border-radius:4px;font-weight:600;color:var(--terracotta-dark)}
+.blog-footer{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
+  font-size:.82rem;color:#888;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+
+/* ====== BUILDER ====== */
+.builder{background:linear-gradient(135deg,#fff 0%,#f0f5e2 100%);border-radius:20px;padding:28px;
+  box-shadow:var(--shadow-soft);border:1px solid var(--line);margin-top:24px;position:relative;overflow:hidden}
+.builder::before{content:"🌍";position:absolute;top:14px;right:20px;font-size:2.2rem;opacity:.4}
+.builder label{display:block;font-weight:700;font-size:.78rem;letter-spacing:.5px;
+  text-transform:uppercase;color:#666;margin:12px 0 4px}
+.builder select{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:10px;
+  font-size:.95rem;font-family:inherit;background:#fff;cursor:pointer}
+.builder select:focus{outline:none;border-color:var(--olive)}
+.builder button{margin-top:16px;background:var(--ink);color:#fff;border:none;padding:12px 26px;
+  border-radius:30px;cursor:pointer;font-weight:700;font-family:inherit;font-size:.9rem;transition:.2s}
+.builder button:hover{background:var(--olive)}
+.builder .result{margin-top:14px;padding:14px 18px;background:#fff;border-radius:10px;
+  border:2px dashed var(--line);min-height:50px;font-size:1rem;display:flex;align-items:center}
+.builder .result.ok{background:rgba(107,122,63,.12);border-color:var(--olive);color:var(--olive-dark);font-weight:700}
+.builder .result.bad{background:rgba(192,57,43,.1);border-color:#c0392b;color:#c0392b;font-weight:700}
+.builder .result.empty{color:#999;font-style:italic}
+
+/* ====== WEATHER GAME ====== */
+.weather-card{background:linear-gradient(135deg,#3a6b8a,#2a4f6b);color:#fff;
+  border-radius:20px;padding:24px;margin:24px 0;position:relative;overflow:hidden}
+.weather-card::before{content:"⛅";position:absolute;top:-20px;right:-10px;font-size:6rem;opacity:.15}
+.weather-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px}
+.weather-cell{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:14px 10px;text-align:center;transition:.2s;cursor:pointer}
+.weather-cell:hover{transform:scale(1.04);background:rgba(255,255,255,.2)}
+.weather-cell .city{font-weight:700;font-size:.9rem;margin-bottom:4px}
+.weather-cell .temp{font-size:1.8rem;font-weight:900;color:var(--mustard);line-height:1}
+.weather-cell .desc{font-size:.75rem;opacity:.85;margin-top:4px}
+.weather-card h3{font-size:1.4rem;margin-bottom:4px}
+
+/* ====== MATCHING ====== */
+.match-card{background:linear-gradient(135deg,#fff,#f0f5e2);border-radius:20px;padding:24px;
+  box-shadow:var(--shadow-soft);border:1px solid var(--line);margin-top:24px}
+.match-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:14px}
+.match-cell{background:#fff;border:2px solid var(--line);padding:14px 10px;border-radius:10px;
+  text-align:center;cursor:pointer;font-weight:600;transition:.2s;font-size:.9rem;user-select:none}
+.match-cell:hover:not(.matched):not(.wrong){border-color:var(--olive);transform:scale(1.03)}
+.match-cell.sel{background:var(--mustard);border-color:var(--terracotta);color:var(--ink)}
+.match-cell.matched{background:linear-gradient(135deg,var(--olive),var(--olive-dark));color:#fff;border-color:transparent;cursor:default}
+.match-cell.wrong{background:#c0392b;color:#fff;border-color:#c0392b;animation:shake .4s}
+.match-status{text-align:center;margin-top:14px;font-weight:700;color:var(--sky);font-size:1rem}
+.match-reset{display:block;margin:14px auto 0;background:transparent;color:var(--sky);
+  border:2px solid var(--sky);padding:6px 18px;border-radius:30px;cursor:pointer;font-weight:700;font-family:inherit}
+.match-reset:hover{background:var(--sky);color:#fff}
+
+/* ====== TIMELINE ====== */
+.timeline{margin:24px 0;padding-left:26px;border-left:3px solid var(--olive)}
+.tl-item{position:relative;padding:12px 18px;margin-bottom:14px;background:#fff;
+  border-radius:10px;box-shadow:var(--shadow-soft)}
+.tl-item::before{content:"";position:absolute;left:-35px;top:18px;width:14px;height:14px;
+  border-radius:50%;background:var(--olive);border:3px solid #fff;box-shadow:0 0 0 2px var(--olive)}
+.tl-item h5{font-size:1.05rem;color:var(--olive);margin-bottom:4px}
+.tl-item p{color:#555;font-size:.9rem;margin:0}
+
+/* ====== SER/ESTAR TOGGLE ====== */
+.toggle-card{background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-soft);
+  border:1px solid var(--line);margin:20px 0}
+.toggle-card h4{margin-bottom:12px;color:var(--olive);font-size:1.1rem}
+.toggle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.toggle-item{padding:12px;background:var(--paper);border-radius:8px;cursor:pointer;
+  border:2px solid transparent;transition:.2s;font-size:.92rem}
+.toggle-item:hover{border-color:var(--olive);background:#fff}
+.toggle-item.correct{background:rgba(107,122,63,.12);border-color:var(--olive);color:var(--olive-dark);font-weight:700}
+.toggle-item.wrong{background:rgba(192,57,43,.1);border-color:#c0392b;color:#c0392b}
+
+/* ====== FOOTER ====== */
+footer{background:var(--ink);color:#fff;padding:50px 20px 24px;text-align:center;margin-top:60px}
+footer h3{font-size:1.8rem;margin-bottom:10px}
+footer p{opacity:.75;margin-bottom:14px;max-width:600px;margin-left:auto;margin-right:auto}
+footer .credit{opacity:.5;font-size:.8rem;margin-top:24px}
+.fab{position:fixed;bottom:20px;right:20px;width:58px;height:58px;border-radius:50%;
+  background:var(--olive);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.78rem;box-shadow:0 8px 20px rgba(107,122,63,.4);cursor:pointer;
+  z-index:100;border:none;flex-direction:column;transition:.2s}
+.fab:hover{transform:scale(1.1)}
+
+/* ====== RESPONSIVE ====== */
+@media(max-width:680px){
+  .toc{padding:10px 12px}
+  .toc-inner{gap:8px}
+  .toc-brand{font-size:1rem}
+  .toc-links{font-size:.7rem;gap:2px;overflow-x:auto;flex-wrap:nowrap;
+    justify-content:flex-start;padding:4px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .toc-links::-webkit-scrollbar{display:none}
+  .toc-links a{padding:5px 10px;white-space:nowrap;flex-shrink:0;font-size:.72rem}
+  .toc-progress{display:none}
+  .hero{padding:40px 16px;min-height:60vh}
+  .hero h1{font-size:2.2rem !important;letter-spacing:-1px}
+  .hero .desc{font-size:.95rem}
+  .hero-cta{flex-direction:column;width:100%;max-width:300px;margin:0 auto}
+  .hero-cta .btn{width:100%;text-align:center}
+  main{padding:40px 16px}
+  .lesson-title{font-size:1.8rem !important}
+  .divider{font-size:1.2rem;margin:40px 0 24px}
+  section{margin-bottom:50px}
+  .intro-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .intro-card{padding:18px 14px}
+  .intro-card .ico{font-size:1.8rem}
+  .intro-card h4{font-size:1rem}
+  .intro-card p{font-size:.8rem}
+  .q-item{padding:14px}
+  .q-opt{padding:7px 10px;font-size:.82rem}
+  .blog{padding:18px}
+  .blog-header{margin:-18px -18px 14px;padding:14px 18px}
+  .blog-image{height:200px;font-size:3rem}
+  .builder{padding:22px 18px}
+  .builder button{width:100%}
+  .country-grid{grid-template-columns:1fr;gap:12px}
+  .country-card{padding:18px}
+  .match-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .match-cell{padding:10px 6px;font-size:.78rem}
+  .weather-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .weather-cell{padding:10px 6px}
+  .weather-cell .city{font-size:.78rem}
+  .weather-cell .temp{font-size:1.4rem}
+  .fab{width:50px;height:50px;font-size:.7rem;bottom:14px;right:14px}
+  footer{padding:36px 16px 18px}
+  footer h3{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <span class="kicker">✨ Unidad 3 · Lección interactiva</span>
+  <h1>¿Dónde está <em>Santiago</em>?</h1>
+  <p class="desc">Un viaje lingüístico por el mundo hispano. Aprende a describir lugares, hablar del clima y usar SER, ESTAR y HAY correctamente.</p>
+  <div class="hero-cta">
+    <a href="#intro" class="btn btn-primary">Empezar la lección →</a>
+    <a href="#quiz-final" class="btn btn-ghost">Quiz final</a>
+  </div>
+</section>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <div class="toc-brand">V<em>24</em></div>
+    <div class="toc-links">
+      <a href="#intro">Inicio</a>
+      <a href="#leccion-1">① Santiago</a>
+      <a href="#leccion-2">② Panamericana</a>
+      <a href="#leccion-3">③ México</a>
+      <a href="#leccion-4">④ Blog Lola</a>
+      <a href="#leccion-5">⑤ Clima</a>
+      <a href="#leccion-6">⑥ Qué/Cuál</a>
+      <a href="#leccion-7">⑦ Superlativo</a>
+      <a href="#gramatica">Gramática</a>
+      <a href="#builder">Constructor</a>
+      <a href="#match">Juego</a>
+      <a href="#quiz-final">Quiz</a>
+    </div>
+    <div class="toc-progress">
+      <span id="progText">0%</span>
+      <div class="toc-progress-bar"><div id="progBar"></div></div>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<section id="intro">
+  <span class="lesson-num">Lección 0</span>
+  <h2 class="lesson-title">Un viaje por el mundo <em>hispano</em></h2>
+  <p class="lesson-deck">Vamos a hacer un <b>concurso de conocimientos del mundo hispano</b>. Aprenderás a describir países, hablar del clima, distinguir <b>ser/estar/hay</b> y usar el superlativo.</p>
+
+  <div class="intro-grid">
+    <div class="intro-card">
+      <span class="tag">Comunicar</span>
+      <span class="ico">🗣️</span>
+      <h4>Describir lugares</h4>
+      <p>Habla de países y ciudades con soltura.</p>
+    </div>
+    <div class="intro-card">
+      <span class="tag">Gramática</span>
+      <span class="ico">⚙️</span>
+      <h4>SER / ESTAR / HAY</h4>
+      <p>Aprende cuándo usar cada uno.</p>
+    </div>
+    <div class="intro-card">
+      <span class="tag">Superlativo</span>
+      <span class="ico">🏆</span>
+      <h4>El más / la más</h4>
+      <p>Expresa récords del mundo hispano.</p>
+    </div>
+    <div class="intro-card">
+      <span class="tag">Clima</span>
+      <span class="ico">🌤️</span>
+      <h4>Hablar del clima</h4>
+      <p>Hace calor, llueve, nieva…</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider">Lección ①</div>
+
+<section id="leccion-1">
+  <span class="lesson-num">Lección 1 · p.34</span>
+  <h2 class="lesson-title">Ciudades que se llaman <em>Santiago</em></h2>
+  <p class="lesson-deck">En el mundo hispano hay tres ciudades famosas con este nombre. ¿Sabes a cuál corresponde cada descripción?</p>
+
+  <div class="data-table">
+    <table>
+      <caption>🌎 Las tres Santiagos</caption>
+      <thead><tr><th>Ciudad</th><th>País</th><th>Característica</th><th>Frase célebre</th></tr></thead>
+      <tbody>
+        <tr><td class="es">Santiago de Compostela</td><td>España 🇪🇸</td><td>Ciudad religiosa, meta del Camino de Santiago</td><td>"Por fin en Santiago, después de un largo camino" <i>(Julio, 46)</i></td></tr>
+        <tr><td class="es">Santiago de Cuba</td><td>Cuba 🇨🇺</td><td>Segunda ciudad más importante de la isla</td><td>"Santiago, la segunda ciudad más importante de la isla" <i>(Ramón, 30)</i></td></tr>
+        <tr><td class="es">Santiago de Chile</td><td>Chile 🇨🇱</td><td>Capital al pie de los Andes</td><td>"La capital del país y las montañas nevadas. ¡Es la cordillera de los Andes!" <i>(Mariana, 28)</i></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>El <b>Camino de Santiago</b> es una ruta de peregrinación cristiana de casi <b>800 km</b> que atraviesa el norte de España. Cientos de miles de personas la recorren cada año a pie o en bicicleta.</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:40px 0 12px">🎯 Empareja cada descripción con su ciudad</h3>
+  <div class="quiz" id="quizSantiago"></div>
+</section>
+
+<div class="divider">Lección ②</div>
+
+<section id="leccion-2">
+  <span class="lesson-num">Lección 2 · p.36</span>
+  <h2 class="lesson-title">Por la <em>Panamericana</em></h2>
+  <p class="lesson-deck">La Carretera Panamericana tiene <b>25.800 km</b> y atraviesa todo el continente americano, desde Alaska hasta Chile, pasando por selvas, desiertos, ciudades y montañas.</p>
+
+  <div class="note-box terra">
+    <h4>🛣️ Datos de la Panamericana</h4>
+    <p>• Empieza en <b>Alaska</b> (norte) y termina en <b>Chile</b> (sur)<br>
+    • Pasa por <b>selvas</b> 🌳, <b>desiertos</b> 🏜️, <b>ciudades</b> 🏙️ y <b>montañas</b> ⛰️</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 12px">🌎 Países hispanos en la ruta</h3>
+  <div class="timeline">
+    <div class="tl-item"><h5>🇲🇽 México</h5><p>Capital: Ciudad de México · 112 millones de habitantes</p></div>
+    <div class="tl-item"><h5>🇬🇹 Guatemala</h5><p>Capital: Ciudad de Guatemala · Ruinas mayas</p></div>
+    <div class="tl-item"><h5>🇸🇻 El Salvador</h5><p>Capital: San Salvador · El país más pequeño de Centroamérica</p></div>
+    <div class="tl-item"><h5>🇭🇳 Honduras</h5><p>Capital: Tegucigalpa · Ruinas de Copán</p></div>
+    <div class="tl-item"><h5>🇳🇮 Nicaragua</h5><p>Capital: Managua · Volcanes y lagos</p></div>
+    <div class="tl-item"><h5>🇨🇷 Costa Rica</h5><p>Capital: San José · 4,7 millones · "Pura vida"</p></div>
+    <div class="tl-item"><h5>🇵🇦 Panamá</h5><p>Capital: Panamá · El famoso Canal</p></div>
+    <div class="tl-item"><h5>🇨🇴 Colombia</h5><p>Capital: Bogotá · Café, salsa, cumbia</p></div>
+    <div class="tl-item"><h5>🇪🇨 Ecuador</h5><p>Capital: Quito · Las Islas Galápagos</p></div>
+    <div class="tl-item"><h5>🇵🇪 Perú</h5><p>Capital: Lima · Machu Picchu, Nazca</p></div>
+    <div class="tl-item"><h5>🇨🇱 Chile</h5><p>Capital: Santiago · Atacama, Patagonia</p></div>
+    <div class="tl-item"><h5>🇦🇷 Argentina</h5><p>Capital: Buenos Aires · Tango, Cataratas</p></div>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 12px">📋 Fichas de países</h3>
+
+  <div class="country-grid">
+    <div class="country-card">
+      <span class="flag">🇨🇱</span>
+      <h4>Chile</h4>
+      <div class="row"><span class="lbl">Capital</span><span class="val">Santiago</span></div>
+      <div class="row"><span class="lbl">Lengua</span><span class="val">el español</span></div>
+      <div class="row"><span class="lbl">Moneda</span><span class="val">el peso</span></div>
+      <div class="row"><span class="lbl">Población</span><span class="val">16,5 millones</span></div>
+      <div class="row"><span class="lbl">Clima</span><span class="val">tropical</span></div>
+      <div class="row"><span class="lbl">Producto</span><span class="val">el café</span></div>
+      <div class="row"><span class="lbl">Plato típico</span><span class="val">el gallopinto</span></div>
+    </div>
+
+    <div class="country-card">
+      <span class="flag">🇨🇷</span>
+      <h4>Costa Rica</h4>
+      <div class="row"><span class="lbl">Capital</span><span class="val">San José</span></div>
+      <div class="row"><span class="lbl">Lengua</span><span class="val">el español</span></div>
+      <div class="row"><span class="lbl">Moneda</span><span class="val">el colón</span></div>
+      <div class="row"><span class="lbl">Población</span><span class="val">4,7 millones</span></div>
+      <div class="row"><span class="lbl">Clima</span><span class="val">tropical / frío interior</span></div>
+      <div class="row"><span class="lbl">Producto</span><span class="val">el cacao</span></div>
+      <div class="row"><span class="lbl">Plato típico</span><span class="val">el locro</span></div>
+    </div>
+
+    <div class="country-card">
+      <span class="flag">🇪🇨</span>
+      <h4>Ecuador</h4>
+      <div class="row"><span class="lbl">Capital</span><span class="val">Quito</span></div>
+      <div class="row"><span class="lbl">Lenguas</span><span class="val">español y quechua</span></div>
+      <div class="row"><span class="lbl">Moneda</span><span class="val">el dólar</span></div>
+      <div class="row"><span class="lbl">Población</span><span class="val">14,6 millones</span></div>
+      <div class="row"><span class="lbl">Clima</span><span class="val">seco / templado / frío</span></div>
+      <div class="row"><span class="lbl">Producto</span><span class="val">el cobre</span></div>
+      <div class="row"><span class="lbl">Plato típico</span><span class="val">la empanada</span></div>
+    </div>
+  </div>
+
+  <div class="note-box sky">
+    <h4>🇪🇸 Ficha de España</h4>
+    <p>• <b>Capital:</b> Madrid<br>
+    • <b>Lenguas oficiales:</b> el español, el catalán, el vasco y el gallego<br>
+    • <b>Clima:</b> templado<br>
+    • <b>Moneda:</b> el euro<br>
+    • <b>Producto importante:</b> el aceite<br>
+    • <b>Población:</b> 47 millones<br>
+    • <b>Plato típico:</b> la paella<br>
+    • <b>Turismo:</b> Costa Brava, La Alhambra, Toledo, Baleares</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:40px 0 12px">🎯 Quiz — fichas de países</h3>
+  <div class="quiz" id="quizPaises"></div>
+</section>
+
+<div class="divider">Lección ③</div>
+
+<section id="leccion-3">
+  <span class="lesson-num">Lección 3 · p.37</span>
+  <h2 class="lesson-title">Concurso: <em>México Lindo</em></h2>
+  <p class="lesson-deck">Una agencia de viajes sortea un viaje a Cancún entre los clientes que contesten correctamente. ¿Quieres intentarlo?</p>
+
+  <div class="note-box terra">
+    <h4>🎁 Concurso México Lindo</h4>
+    <p>Contesta las 9 preguntas y puedes ganar un fabuloso viaje a <b>Cancún</b>.</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 12px">🎯 Quiz — México</h3>
+  <div class="quiz" id="quizMexico"></div>
+</section>
+
+<div class="divider">Lección ④</div>
+
+<section id="leccion-4">
+  <span class="lesson-num">Lección 4 · p.38</span>
+  <h2 class="lesson-title">El blog de <em>Lola</em></h2>
+  <p class="lesson-deck">Lola está de viaje por Latinoamérica. ¿En qué país crees que está ahora? Lee y descúbrelo.</p>
+
+  <div class="blog">
+    <div class="blog-header">
+      <h3>📍 Mi viaje por Latinoamérica</h3>
+      <div class="date">Lunes, 4 de febrero · 15:50 h</div>
+    </div>
+    <h4 style="color:var(--olive);margin-bottom:10px;font-size:1.1rem">Segunda semana</h4>
+    <p>Aquí todo <span class="hl">es</span> precioso. <span class="hl">Hay</span> unas playas de arena negra maravillosas, <span class="hl-esta">están</span> en el Pacífico y <span class="hl">son</span> increíbles. Hoy <span class="hl-esta">estamos</span> en la capital, que <span class="hl-esta">está</span> en el centro del país. La gente <span class="hl">es</span> muy simpática y todo el mundo <span class="hl">es</span> muy amable. La comida también <span class="hl">es</span> muy buena: el tamal <span class="hl">es</span> el plato más típico, pero <span class="hl">hay</span> muchas cosas ricas...</p>
+    <p>Hace mucho calor y el clima <span class="hl">es</span> muy húmedo (llueve por la tarde casi todos los días), pero no importa. Mañana vamos a Tikal para visitar unas ruinas mayas que <span class="hl-esta">están</span> en la selva. Tengo muchas ganas porque dicen que Tikal <span class="hl">es</span> muy bonito.</p>
+    <div class="blog-image">🏛️</div>
+    <p><span class="hl">Hay</span> cinco templos antiguos y también <span class="hl">hay</span> palacios, plazas... Edu y yo queremos visitar una ciudad que se llama Chichicastenango. Allí <span class="hl">hay</span> un mercado muy conocido que queremos ver. Y después vamos en autobús a México.</p>
+    <div class="blog-footer">
+      <span>📝 <b>Lola Ordóñez</b></span>
+      <span>💬 0 comentarios</span>
+      <span>🔗</span>
+      <span>✉️</span>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <h4>🌍 ¿En qué país está Lola?</h4>
+    <p><b>¡En Guatemala! 🇬🇹</b><br>
+    Pistas: <b>playas de arena negra en el Pacífico</b>, <b>Tikal</b> (ruinas mayas en la selva), <b>Chichicastenango</b>, <b>el tamal</b> como plato típico.</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:40px 0 12px">⚖️ SER vs ESTAR vs HAY</h3>
+  <p style="color:#666;margin-bottom:12px">Haz clic en cada frase para ver la respuesta correcta.</p>
+  <div class="toggle-grid" id="serEstar"></div>
+</section>
+
+<div class="divider">Lección ⑤</div>
+
+<section id="leccion-5">
+  <span class="lesson-num">Lección 5 · p.39</span>
+  <h2 class="lesson-title">¿Cómo es el clima en tu <em>país</em>?</h2>
+  <p class="lesson-deck">Estas fotos son webcams del tiempo en diferentes ciudades de España. ¿Qué tiempo hace en cada una?</p>
+
+  <div class="weather-card">
+    <h3>🌡️ Webcams de España</h3>
+    <p style="opacity:.85;font-size:.9rem">Toca una ciudad para descubrir más.</p>
+    <div class="weather-grid" id="weatherGrid"></div>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 12px">🗣️ Vocabulario del clima</h3>
+  <div class="data-table">
+    <table>
+      <caption>📌 Cómo hablar del clima</caption>
+      <thead><tr><th>Expresión</th><th>Significado</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td class="es">Hace calor</td><td>الجو حار</td><td>En verano <b>hace calor</b>.</td></tr>
+        <tr><td class="es">Hace frío</td><td>الجو بارد</td><td>En Burgos <b>hace frío</b> y nieva.</td></tr>
+        <tr><td class="es">Hace sol</td><td>الجو مشمس</td><td>En Tarifa <b>hace sol</b> y viento.</td></tr>
+        <tr><td class="es">Hace viento</td><td>الجو عاصف</td><td>Hoy <b>hace mucho viento</b>.</td></tr>
+        <tr><td class="es">Llueve</td><td>يمطر</td><td>En Santander <b>llueve</b> mucho.</td></tr>
+        <tr><td class="es">Nieva</td><td>يثلج</td><td>En la montaña <b>nieva</b> en invierno.</td></tr>
+        <tr><td class="es">Está nublado</td><td>غائم</td><td>Hoy <b>está nublado</b>.</td></tr>
+        <tr><td class="es">Hay muchas nubes</td><td>يوجد غيوم</td><td><b>Hay muchas nubes</b> en el cielo.</td></tr>
+        <tr><td class="es">El clima es…</td><td>المناخ…</td><td>El clima <b>es</b> tropical / templado.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box sky">
+    <h4>🪄 Truco: En + estación del año</h4>
+    <p>• <b>En verano</b> (في الصيف) · <b>En otoño</b> (في الخريف)<br>
+    • <b>En invierno</b> (في الشتاء) · <b>En primavera</b> (في الربيع)</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 12px">🎯 Quiz — el clima</h3>
+  <div class="quiz" id="quizClima"></div>
+</section>
+
+<div class="divider">Lección ⑥</div>
+
+<section id="leccion-6">
+  <span class="lesson-num">Lección 6 · p.40</span>
+  <h2 class="lesson-title">¿Qué o Cuál? — <em>preguntar</em></h2>
+  <p class="lesson-deck">¿Cuándo usamos <b>qué</b> y cuándo <b>cuál/cuáles</b>? Aquí va la regla de oro:</p>
+
+  <div class="note-box">
+    <h4>📐 Reglas</h4>
+    <p><b>¿Qué?</b> → para <b>definir o explicar</b> (ما هو؟)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<i>¿Qué es el tequila? → Una bebida mexicana.</i><br><br>
+    <b>¿Cuál?</b> → para <b>identificar entre varios</b> (أيّ واحد؟)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<i>¿Cuál es la capital de Colombia? → Bogotá.</i><br><br>
+    <b>¿Cuáles?</b> → plural (أيّ مجموعة؟)</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 12px">🎯 Quiz — completa con qué / cuál / cuáles</h3>
+  <div class="quiz" id="quizQue"></div>
+</section>
+
+<div class="divider">Lección ⑦</div>
+
+<section id="leccion-7">
+  <span class="lesson-num">Lección 7 · p.40</span>
+  <h2 class="lesson-title">Mundo latino en <em>superlativo</em></h2>
+  <p class="lesson-deck">Datos curiosos del mundo hispano usando el superlativo. ¡Récords mundiales!</p>
+
+  <div class="data-table">
+    <table>
+      <caption>🏆 Récords del mundo hispano</caption>
+      <thead><tr><th>Récord</th><th>Frase completa</th></tr></thead>
+      <tbody>
+        <tr><td>🏔️ Montaña más alta de América</td><td>El Aconcagua <b>está en</b> Argentina <b>y es</b> la montaña <b>más alta de</b> América.</td></tr>
+        <tr><td>🏜️ Lugar más seco del planeta</td><td>El desierto de Atacama <b>es el</b> lugar <b>más seco del</b> planeta.</td></tr>
+        <tr><td>🌋 Volcán muy activo</td><td>El volcán Arenal <b>está en</b> Costa Rica <b>y es uno de los</b> más activos del mundo.</td></tr>
+        <tr><td>🗺️ País más grande del mundo hispano</td><td><b>Es el</b> país <b>más grande del</b> mundo hispano: Argentina.</td></tr>
+        <tr><td>🏙️ Ciudades más pobladas</td><td><b>Son las</b> dos ciudades <b>más pobladas del</b> mundo hispano: Buenos Aires <b>y</b> Ciudad de México.</td></tr>
+        <tr><td>☕ Mayores productores de café</td><td><b>Son los</b> mayores productores de café <b>de</b> Centroamérica: Guatemala <b>y</b> Honduras.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box terra">
+    <h4>📐 Estructura del superlativo</h4>
+    <p><b>el / la / los / las</b> + <b>más</b> + adjetivo + <b>de</b><br>
+    • El <b>más alto</b> del mundo<br>• La <b>más bonita</b> de la clase<br>• Los <b>más grandes</b> del país</p>
+  </div>
+
+  <h3 style="font-size:1.4rem;margin:30px 0 12px">🎯 Quiz — el superlativo</h3>
+  <div class="quiz" id="quizSuperlativo"></div>
+</section>
+
+<div class="divider">Gramática</div>
+
+<section id="gramatica">
+  <span class="lesson-num">Resumen gramatical</span>
+  <h2 class="lesson-title">Las reglas del <em>juego</em></h2>
+  <p class="lesson-deck">Toda la gramática de la unidad en un solo lugar.</p>
+
+  <h3 style="font-size:1.3rem;margin:24px 0 10px;color:var(--olive)">1️⃣ DESCRIBIR Y DEFINIR — SER</h3>
+  <p style="margin-bottom:8px">• <b>SER + adjetivo:</b> Perú <b>es</b> muy bonito. / Los peruanos <b>son</b> amables.</p>
+  <p>• <b>SER + sustantivo:</b> México <b>es un</b> país turístico.</p>
+
+  <h3 style="font-size:1.3rem;margin:24px 0 10px;color:var(--olive)">2️⃣ ESTAR — ubicación</h3>
+  <div class="data-table">
+    <table>
+      <thead><tr><th>Pronombre</th><th>ESTAR</th><th>Pronombre</th><th>ESTAR</th></tr></thead>
+      <tbody>
+        <tr><td>(yo)</td><td class="es">estoy</td><td>(nosotros)</td><td class="es">estamos</td></tr>
+        <tr><td>(tú)</td><td class="es">estás</td><td>(vosotros)</td><td class="es">estáis</td></tr>
+        <tr><td>(él/ella/usted)</td><td class="es">está</td><td>(ellos/ellas)</td><td class="es">están</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1.3rem;margin:24px 0 10px;color:var(--olive)">3️⃣ HAY — existencia</h3>
+  <p>• En Asturias <b>hay muchas</b> montañas. • En España <b>no hay</b> petróleo.</p>
+
+  <h3 style="font-size:1.3rem;margin:24px 0 10px;color:var(--olive)">4️⃣ ARTÍCULOS INDETERMINADOS</h3>
+  <div class="data-table">
+    <table>
+      <thead><tr><th></th><th>Singular</th><th>Plural</th></tr></thead>
+      <tbody>
+        <tr><td><b>Masculino</b></td><td class="es">un</td><td class="es">unos</td></tr>
+        <tr><td><b>Femenino</b></td><td class="es">una</td><td class="es">unas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1.3rem;margin:24px 0 10px;color:var(--olive)">5️⃣ CUANTIFICADORES</h3>
+  <p>• <b>mucho</b> café · <b>mucha</b> contaminación · <b>muchos</b> tipos · <b>muchas</b> ciudades</p>
+  <div class="note-box terra">
+    <h4>🆚 muy vs mucho</h4>
+    <p><b>muy + adjetivo</b>: <i>muy bonito</i><br>
+    <b>mucho + verbo</b>: <i>Llueve <b>mucho</b></i></p>
+  </div>
+
+  <h3 style="font-size:1.3rem;margin:24px 0 10px;color:var(--olive)">6️⃣ PREGUNTAR</h3>
+  <p>• ¿<b>Qué</b> es el mate? → Una infusión.<br>
+  • ¿<b>Cuál</b> es la capital? → Bogotá.<br>
+  • ¿<b>Cuántos</b> habitantes? → 47 millones.</p>
+
+  <h3 style="font-size:1.3rem;margin:24px 0 10px;color:var(--olive)">7️⃣ SUPERLATIVO</h3>
+  <p>• El Prado <b>es el</b> museo <b>más famoso de</b> Madrid.</p>
+</section>
+
+<div class="divider">Constructor</div>
+
+<section id="builder">
+  <span class="lesson-num">Constructor interactivo</span>
+  <h2 class="lesson-title">Describe un <em>país</em></h2>
+  <p class="lesson-deck">Construye una descripción completa de un país hispanohablante.</p>
+
+  <div class="builder">
+    <label>1️⃣ Verbo de inicio</label>
+    <select id="b-start">
+      <option>Es un país</option>
+      <option>Es una nación</option>
+    </select>
+
+    <label>2️⃣ País</label>
+    <select id="b-country">
+      <option>Argentina</option>
+      <option>México</option>
+      <option>España</option>
+      <option>Colombia</option>
+      <option>Perú</option>
+      <option>Chile</option>
+      <option>Cuba</option>
+    </select>
+
+    <label>3️⃣ Ubicación</label>
+    <select id="b-location">
+      <option>y está en América del Sur.</option>
+      <option>y está en América del Norte.</option>
+      <option>y está en Europa.</option>
+      <option>y está en el Caribe.</option>
+    </select>
+
+    <label>4️⃣ Clima</label>
+    <select id="b-climate">
+      <option>El clima es templado.</option>
+      <option>El clima es tropical.</option>
+      <option>El clima es muy variado.</option>
+      <option>Hace mucho calor en verano.</option>
+    </select>
+
+    <label>5️⃣ Atractivo</label>
+    <select id="b-tour">
+      <option>Hay muchas playas preciosas.</option>
+      <option>Hay montañas muy altas.</option>
+      <option>Hay ciudades coloniales.</option>
+      <option>La capital es muy interesante.</option>
+    </select>
+
+    <button onclick="construirPais()">✨ Construir descripción</button>
+    <div class="result empty" id="b-result">Tu descripción aparecerá aquí…</div>
+  </div>
+</section>
+
+<div class="divider">Juego</div>
+
+<section id="match">
+  <span class="lesson-num">Juego didáctico</span>
+  <h2 class="lesson-title">Empareja: país ↔ <em>capital</em></h2>
+  <p class="lesson-deck">Toca un país y luego su capital para emparejarlos.</p>
+
+  <div class="match-card">
+    <div class="match-grid" id="matchGrid"></div>
+    <div class="match-status" id="matchStatus">Empareja las 6 capitales 🧩</div>
+    <button class="match-reset" onclick="initMatching()">🔄 Reiniciar</button>
+  </div>
+</section>
+
+<div class="divider">Examen</div>
+
+<section id="quiz-final">
+  <span class="lesson-num">Examen final</span>
+  <h2 class="lesson-title">Quiz final de la <em>unidad</em></h2>
+  <p class="lesson-deck">10 preguntas para cerrar la unidad. ¡Suerte! 🍀</p>
+  <div class="quiz" id="quizFinal"></div>
+</section>
+
+</main>
+
+<footer>
+  <h3>¡Buen trabajo! 🎉</h3>
+  <p>Has completado la Unidad 3. Ahora sabes hablar del mundo hispano, describir países y usar SER, ESTAR y HAY con confianza.</p>
+  <div class="credit">© 2024 · Hecho con ❤️ para estudiantes de español</div>
+</footer>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑<span>TOP</span></button>
+
+<script>
+const matchPairs = [
+  {es:"🇨🇱 Chile", ar:"Santiago"},
+  {es:"🇲🇽 México", ar:"Ciudad de México"},
+  {es:"🇦🇷 Argentina", ar:"Buenos Aires"},
+  {es:"🇨🇴 Colombia", ar:"Bogotá"},
+  {es:"🇵🇪 Perú", ar:"Lima"},
+  {es:"🇪🇸 España", ar:"Madrid"}
+];
+
+const weatherData = [
+  {city:"Tarifa", temp:"25°C", desc:"hace calor y sol", icon:"☀️"},
+  {city:"San Sebastián", temp:"8°C", desc:"está nublado", icon:"🌧️"},
+  {city:"Tenerife", temp:"33°C", desc:"hace mucho calor", icon:"🔥"},
+  {city:"Barcelona", temp:"15°C", desc:"hace sol y viento", icon:"🌤️"},
+  {city:"Burgos", temp:"-2°C", desc:"hace frío y nieva", icon:"❄️"},
+  {city:"Santander", temp:"10°C", desc:"llueve", icon:"☔"}
+];
+
+function renderWeather(){
+  const g = document.getElementById("weatherGrid");
+  weatherData.forEach(w=>{
+    const c = document.createElement("div");
+    c.className = "weather-cell";
+    c.innerHTML = `<div class="city">${w.icon} ${w.city}</div><div class="temp">${w.temp}</div><div class="desc">${w.desc}</div>`;
+    g.appendChild(c);
+  });
+}
+
+const serEstarItems = [
+  {text:"La Giralda ___ en Sevilla.", answer:"está"},
+  {text:"Las islas Cíes ___ en Galicia.", answer:"están"},
+  {text:"En Asturias ___ muchas montañas.", answer:"hay"},
+  {text:"Perú ___ muy bonito.", answer:"es"},
+  {text:"Los peruanos ___ muy amables.", answer:"son"},
+  {text:"México ___ un país turístico.", answer:"es"},
+  {text:"___ un estadio en Barcelona.", answer:"Hay"},
+  {text:"Tikal ___ en la selva.", answer:"está"}
+];
+function renderSerEstar(){
+  const cont = document.getElementById("serEstar");
+  serEstarItems.forEach((it,i)=>{
+    const d = document.createElement("div");
+    d.className = "toggle-item";
+    d.innerHTML = `<b>${i+1}.</b> ${it.text} <b style="color:var(--olive)">[${it.answer}]</b>`;
+    d.addEventListener("click",()=>{d.classList.toggle("correct");addProgress();});
+    cont.appendChild(d);
+  });
+}
+
+function construirPais(){
+  const s = document.getElementById("b-start").value;
+  const c = document.getElementById("b-country").value;
+  const l = document.getElementById("b-location").value;
+  const cl = document.getElementById("b-climate").value;
+  const t = document.getElementById("b-tour").value;
+  const out = document.getElementById("b-result");
+  out.className = "result ok";
+  out.innerHTML = "✅ " + s + ": " + c + ", " + l + " " + cl + " " + t;
+  addProgress();
+}
+
+let firstPick=null, matchedCount=0;
+function initMatching(){
+  matchedCount=0; firstPick=null;
+  const grid=document.getElementById("matchGrid");
+  grid.innerHTML="";
+  const items=[];
+  matchPairs.forEach((p,i)=>{
+    items.push({txt:p.es,key:i,side:"es"});
+    items.push({txt:p.ar,key:i,side:"ar"});
+  });
+  shuffle(items).forEach(it=>{
+    const d=document.createElement("div");
+    d.className="match-cell";
+    d.textContent=it.txt;
+    d.dataset.key=it.key;
+    d.dataset.side=it.side;
+    d.addEventListener("click",()=>pickMatch(d));
+    grid.appendChild(d);
+  });
+  document.getElementById("matchStatus").textContent="Empareja las 6 capitales 🧩";
+}
+function pickMatch(el){
+  if(el.classList.contains("matched")||el.classList.contains("wrong")) return;
+  el.classList.add("sel");
+  if(!firstPick){firstPick=el;return;}
+  if(firstPick===el){el.classList.remove("sel");firstPick=null;return;}
+  const sameKey = firstPick.dataset.key===el.dataset.key && firstPick.dataset.side!==el.dataset.side;
+  if(sameKey){
+    firstPick.classList.remove("sel");el.classList.remove("sel");
+    firstPick.classList.add("matched");el.classList.add("matched");
+    matchedCount++;
+    document.getElementById("matchStatus").textContent = `🎉 ${matchedCount}/6 emparejadas`;
+    if(matchedCount===6){
+      document.getElementById("matchStatus").textContent="🏆 ¡Todas correctas!";
+      addProgress();
+    }
+  }else{
+    el.classList.add("wrong");firstPick.classList.add("wrong");
+    setTimeout(()=>{
+      el.classList.remove("wrong","sel");
+      firstPick.classList.remove("wrong","sel");
+      firstPick=null;
+    },700);
+    return;
+  }
+  firstPick=null;
+}
+
+function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
+function buildQuiz(id, qs){
+  const c = document.getElementById(id);
+  c.innerHTML="";
+  qs.forEach((q,i)=>{
+    const opts = shuffle([q.answer, ...q.wrong]);
+    const block = document.createElement("div");
+    block.className="q-item";
+    block.innerHTML = `
+      <div class="q-text"><span class="q-num">${i+1}</span><span>${q.q}</span></div>
+      <div class="q-opts">${opts.map(o=>`<button class="q-opt" data-ok="${o===q.answer}">${o}</button>`).join("")}</div>
+      <div class="q-explain">💡 <b>${q.explain}</b></div>`;
+    block.querySelectorAll(".q-opt").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        block.querySelectorAll(".q-opt").forEach(b=>b.disabled=true);
+        const ok = btn.dataset.ok==="true";
+        btn.classList.add(ok?"correct":"wrong");
+        if(!ok) block.querySelector(".q-opt[data-ok='true']").classList.add("correct");
+        block.querySelector(".q-explain").classList.add("show");
+        addProgress();
+      });
+    });
+    c.appendChild(block);
+  });
+}
+
+buildQuiz("quizSantiago",[
+  {q:"\"Por fin en Santiago, después de un largo camino\" corresponde a:",answer:"Santiago de Compostela",wrong:["Santiago de Chile","Santiago de Cuba"],explain:"Camino de peregrinación en Galicia, España"},
+  {q:"\"La capital del país, y las montañas nevadas. ¡Es la cordillera de los Andes!\" corresponde a:",answer:"Santiago de Chile",wrong:["Santiago de Compostela","Santiago de Cuba"],explain:"Capital de Chile, al pie de los Andes"},
+  {q:"\"Santiago, la segunda ciudad más importante de la isla\" corresponde a:",answer:"Santiago de Cuba",wrong:["Santiago de Chile","Santiago de Compostela"],explain:"Segunda ciudad de Cuba"}
+]);
+
+buildQuiz("quizPaises",[
+  {q:"¿Cuál es la capital de Chile?",answer:"Santiago",wrong:["Buenos Aires","Lima","Bogotá"],explain:"Chile → Santiago"},
+  {q:"¿Cuál es la moneda de Costa Rica?",answer:"el colón",wrong:["el peso","el dólar","el euro"],explain:"Costa Rica → el colón"},
+  {q:"¿Cuántas lenguas oficiales tiene Ecuador?",answer:"Dos (español y quechua)",wrong:["Una (español)","Tres","Ninguna"],explain:"Ecuador: español y quechua"},
+  {q:"¿Cuál es el plato típico de Costa Rica?",answer:"el locro",wrong:["el gallopinto","la empanada","la paella"],explain:"Costa Rica → el locro"},
+  {q:"¿Cuál es la población de España?",answer:"47 millones",wrong:["16,5 millones","112 millones","4,7 millones"],explain:"España ~ 47 millones"},
+  {q:"¿Cuál es la capital de Argentina?",answer:"Buenos Aires",wrong:["Santiago","Lima","Madrid"],explain:"Argentina → Buenos Aires"},
+  {q:"¿Cuál es el producto importante de Ecuador?",answer:"el cobre",wrong:["el café","el cacao","el aceite"],explain:"Ecuador → el cobre"}
+]);
+
+buildQuiz("quizMexico",[
+  {q:"¿Cuál es la capital de México?",answer:"México, D.F.",wrong:["Buenos Aires","Acapulco","Cancún"],explain:"Capital: Ciudad de México"},
+  {q:"¿Cuántos habitantes tiene México?",answer:"112 millones",wrong:["57 millones","10 millones","75 millones"],explain:"~ 112 millones"},
+  {q:"¿Cuántas lenguas oficiales hay en México?",answer:"Dos (español y maya)",wrong:["Ninguna","Una (español)","Tres"],explain:"México: español y maya"},
+  {q:"¿Dónde está Oaxaca?",answer:"En el centro",wrong:["En el norte","En el sur","En la costa"],explain:"Centro-sur de México"},
+  {q:"¿Cuál es la moneda de México?",answer:"El peso",wrong:["El euro","El dólar","El sol"],explain:"México → el peso"},
+  {q:"¿Qué es una 'ranchera'?",answer:"Una música típica",wrong:["Una lengua","Un plato","Una bebida"],explain:"Género musical mexicano"},
+  {q:"¿Cómo es el clima en la costa atlántica?",answer:"Tropical y lluvioso",wrong:["Frío","Seco","Templado"],explain:"Costa atlántica: tropical y lluvioso"},
+  {q:"¿Qué es el tequila?",answer:"Una bebida",wrong:["Un estado","Una fiesta","Un plato"],explain:"Tequila = bebida"},
+  {q:"¿Hay selvas y desiertos en México?",answer:"Sí, hay ambos",wrong:["Solo desiertos","Solo selvas","No hay ninguno"],explain:"México tiene ambos"}
+]);
+
+buildQuiz("quizClima",[
+  {q:"En Tarifa, con 25°C y sol, ¿qué tiempo hace?",answer:"Hace calor y sol",wrong:["Hace frío","Llueve mucho","Nieva"],explain:"25°C + sol = hace calor"},
+  {q:"En Burgos, con -2°C, ¿qué tiempo hace?",answer:"Hace frío y nieva",wrong:["Hace calor","Hace viento","Está nublado"],explain:"-2°C = hace frío y nieva"},
+  {q:"\"En Santander <u>___</u> mucho\" — ¿Qué verbo?",answer:"llueve",wrong:["hace","está","hay"],explain:"Llover es verbo independiente"},
+  {q:"\"En verano <u>hace ___</u>\"",answer:"calor",wrong:["lluvia","nieve","viento"],explain:"Hace calor"},
+  {q:"\"El cielo está gris y <u>___</u> muchas nubes\"",answer:"hay",wrong:["hace","está","son"],explain:"Hay muchas nubes"},
+  {q:"\"Hoy <u>___</u> nublado\"",answer:"está",wrong:["hace","hay","es"],explain:"Está nublado"}
+]);
+
+buildQuiz("quizQue",[
+  {q:"¿<u>___</u> es la capital de Colombia?",answer:"Cuál",wrong:["Qué","Cuáles","Cuántas"],explain:"Cuál = identificar"},
+  {q:"¿<u>___</u> son las tapas?",answer:"Qué",wrong:["Cuál","Cuáles","Dónde"],explain:"Qué = definir"},
+  {q:"¿<u>___</u> es el mate?",answer:"Qué",wrong:["Cuál","Cuáles","Quién"],explain:"Qué = definir"},
+  {q:"¿<u>___</u> son las playas más bonitas de Guatemala?",answer:"Cuáles",wrong:["Qué","Cuál","Dónde"],explain:"Cuáles = plural"},
+  {q:"¿<u>___</u> es la moneda de Honduras?",answer:"Cuál",wrong:["Qué","Cuáles","Quién"],explain:"Cuál = identificar"},
+  {q:"¿<u>Cuál</u> es la capital de Cuba?",answer:"Cuál",wrong:["Qué","Cuáles","Cuánto"],explain:"Cuál = elegir una"}
+]);
+
+buildQuiz("quizSuperlativo",[
+  {q:"El Aconcagua es la montaña <u>___</u> alta de América.",answer:"más",wrong:["menos","muy","poco"],explain:"La más alta"},
+  {q:"El Atacama es <u>___</u> lugar más seco del planeta.",answer:"el",wrong:["la","los","un"],explain:"Lugar (M, sg) → el"},
+  {q:"Argentina es <u>___</u> país más grande del mundo hispano.",answer:"el",wrong:["la","los","un"],explain:"País (M, sg) → el"},
+  {q:"Buenos Aires y CDMX son las ciudades <u>___</u> pobladas.",answer:"más",wrong:["menos","muy","tan"],explain:"Las más pobladas"},
+  {q:"Guatemala y Honduras son <u>___</u> mayores productores.",answer:"los",wrong:["el","la","las"],explain:"Productores (M, pl) → los"},
+  {q:"El Everest y el K2 son las montañas <u>___</u> altas del mundo.",answer:"más",wrong:["menos","muy","tan"],explain:"Las más altas"}
+]);
+
+buildQuiz("quizFinal",[
+  {q:"¿Cuál es la capital de Chile?",answer:"Santiago",wrong:["Lima","Buenos Aires","Bogotá"],explain:"Chile → Santiago"},
+  {q:"La Giralda <u>___</u> en Sevilla.",answer:"está",wrong:["es","hay","son"],explain:"Ubicación → ESTAR"},
+  {q:"En Asturias <u>___</u> muchas montañas.",answer:"hay",wrong:["está","son","es"],explain:"Existencia → HAY"},
+  {q:"¿<u>Qué</u> es el tequila?",answer:"Una bebida",wrong:["Un plato","Una ciudad","Un estado"],explain:"Tequila = bebida"},
+  {q:"Perú <u>es un</u> país turístico. → ¿SER o ESTAR?",answer:"SER (identidad)",wrong:["ESTAR (ubicación)","HAY (existencia)","Ninguno"],explain:"Identidad → SER"},
+  {q:"¿Cuál es la moneda de Costa Rica?",answer:"el colón",wrong:["el peso","el dólar","el euro"],explain:"Costa Rica → colón"},
+  {q:"<u>Hace</u> mucho calor. → significa:",answer:"الجو حار جداً",wrong:["الجو بارد","الجو ممطر","الجو مثلج"],explain:"Hace calor = حار"},
+  {q:"¿<u>Cuáles</u> son las lenguas oficiales de Perú?",answer:"Español y quechua",wrong:["Español e inglés","Solo español","Tres"],explain:"Perú tiene 2 oficiales"},
+  {q:"El Nilo y el Amazonas son los ríos <u>___</u> largos del mundo.",answer:"más",wrong:["menos","muy","tan"],explain:"Los más largos"},
+  {q:"\"Llueve <u>mucho</u>\" → ¿mucho modifica a…?",answer:"El verbo llueve",wrong:["Un sustantivo","Un adjetivo","Un adverbio"],explain:"Mucho modifica al verbo"}
+]);
+
+let progress = Number(localStorage.getItem("u3_progress")||0);
+const totalSections = 12;
+function paintProgress(){
+  const pct = Math.min(100, Math.round(progress/totalSections*100));
+  document.getElementById("progText").textContent = pct+"%";
+  document.getElementById("progBar").style.width = pct+"%";
+}
+function addProgress(){
+  if(progress<totalSections){
+    progress++;
+    localStorage.setItem("u3_progress",progress);
+    paintProgress();
+  }
+}
+paintProgress();
+
+function addMobileLabels(){
+  document.querySelectorAll('.data-table').forEach(table=>{
+    const headers = table.querySelectorAll('thead th');
+    if(!headers.length) return;
+    table.querySelectorAll('tbody tr').forEach(tr=>{
+      tr.querySelectorAll('td').forEach((td,i)=>{
+        if(headers[i] && !td.dataset.label){
+          td.dataset.label = headers[i].textContent.trim();
+        }
+      });
+    });
+  });
+}
+addMobileLabels();
+
+document.querySelectorAll('.toc-links a, .hero-cta a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const href=a.getAttribute('href');
+    if(href && href.startsWith('#')){
+      const t=document.querySelector(href);
+      if(t){e.preventDefault();window.scrollTo({top:t.offsetTop-70,behavior:'smooth'});}
+    }
+  });
+});
+
+const sections = document.querySelectorAll('section[id]');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting && en.intersectionRatio>0.3){addProgress();}
+  });
+},{threshold:[0.3]});
+sections.forEach(s=>observer.observe(s));
+
+renderWeather();
+renderSerEstar();
+initMatching();
+</script>
+
+</body>
+</html>
